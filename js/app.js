@@ -6,7 +6,7 @@ const loadPhones = async(searchText, dataLimit) =>{
 }
 const displayPhones = (phones, dataLimit) =>{
     const phonesContainer = document.getElementById('phones-container');
-    // phonesContainer.textContent = '';
+    phonesContainer.textContent = '';
     console.log(phones.length);
     // display 10 phones only 
     const showAll = document.getElementById('show-all');
@@ -15,7 +15,7 @@ const displayPhones = (phones, dataLimit) =>{
         showAll.classList.remove('d-none');
     }
     else{
-        showAll.classList.add('d-hidden');
+        showAll.classList.add('d-none');
     }
     
 
@@ -52,14 +52,16 @@ const processSearch = (dataLimit) =>{
     toggleSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    searchField.value = '';
     loadPhones(searchText, dataLimit);
+    // searchField.value = ''
 }
 
 // handle search button click
 document.getElementById('btn-search').addEventListener('click', function(){
     // start loader
     processSearch(10);
+        // const searchField = document.getElementById('search-field');
+        // searchField.value = ''
 })
 
 // search input field enter key handler
@@ -93,14 +95,15 @@ const loadPhoneDetails = async id =>{
 }
 
 const displayPhoneDetails = phone =>{
-    console.log(phone);
     const modalTitle = document.getElementById('phoneDetailModalLabel');
     modalTitle.innerText = phone.name;
-    const phoneDetails = document.getElementById('phone-details');
-    console.log(phone.mainFeatures.sensors[0]);
+    const phoneDetails = document.getElementById('phone-details')
+    // console.log(phone.mainFeatures.sensors[0]);
+    console.log(phone.releaseDate);
+
     phoneDetails.innerHTML = `
         <p>Release Date: ${phone.releaseDate}</p>
-        <p>Storage: ${phone.mainFeatures}</p>
+        <p>Storage: ${phone.mainFeatures.storage}</p>
         <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
     `
